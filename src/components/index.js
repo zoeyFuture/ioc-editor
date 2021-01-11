@@ -24,8 +24,9 @@ const components = [
 ]
 
 const install = function(Vue) {
-  if (!Vue.prototype.$EventBus) {
-    Vue.prototype.$EventBus = new Vue()
+  // 引入事件总线
+  if (!Vue.prototype.$eventBus) {
+    Vue.prototype.$eventBus = new Vue()
   }
   components.forEach(component => {
     Vue.component(component.name, component)

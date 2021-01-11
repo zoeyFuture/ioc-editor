@@ -16,22 +16,6 @@
       :style="{ cursor: `${point.split('').reverse().map(m => direction[m]).join('')}-resize`}"
     >
     </div>
-    <div class="shape__header">
-      <Tooltip
-        :key="option.value"
-        :title="option.label"
-        v-for="option in levelOptions"
-      >
-        <div class="item" @click="handleLevel(option.value)">
-          <i :class="`iconfont icon-level-${option.value}`"/>
-        </div>
-      </Tooltip>
-      <Tooltip title="删除">
-        <div class="item" @click="handleDelete">
-          <i class="iconfont icon-layer-delete"/>
-        </div>
-      </Tooltip>
-    </div>
     <div class="shape__content">
       <slot></slot>
     </div>
@@ -40,14 +24,10 @@
 
 <script>
 import Vue from 'vue'
-import { Tooltip } from 'ant-design-vue'
 import IocContextMenu from '../../context-menu'
 Vue.use(IocContextMenu)
 export default {
   name: 'ioc-shape',
-  components: {
-    Tooltip
-  },
   props: {
     layer: {
       type: Object,
@@ -62,21 +42,16 @@ export default {
         t: 'n',
         b: 's',
         l: 'w',
-        r: 'e',
-      },
-      levelOptions: [
-        { label: '置底', value: 'bottom' },
-        { label: '置顶', value: 'top' },
-        { label: '上移一层', value: 'up' },
-        { label: '下移一层', value: 'down' }
-      ]
+        r: 'e'
+      }
     }
   },
   computed: {
     isActive () {
-      const { id } = this.layer
-      const { active } = this.iocFrame
-      return !!active && active.id === id
+      if (this.iocFrame.active) {
+        return this.iocFrame.active.id === this.layer.id
+      }
+      return false
     },
     style () {
       const { id, zIndex, position: { x, y }, size: { width, height }, fullscreen = false } = this.layer
@@ -89,7 +64,7 @@ export default {
           left: `${position.x}px`,
           width: width + 'px',
           height: height + 'px',
-          zIndex,
+          zIndex
         }
       }
 
@@ -99,7 +74,7 @@ export default {
           top: 0,
           width: '100%',
           height: '100%',
-          zIndex,
+          zIndex
         }
       }
 
@@ -108,22 +83,22 @@ export default {
         top: y + 'px',
         width: width + 'px',
         height: height + 'px',
-        zIndex,
+        zIndex
       }
     },
     menuOptions () {
       let options = []
       const length = this.iocFrame.layers.length
       const zIndex = this.layer.zIndex
-      if (zIndex < length -1) {
+      if (zIndex < length - 1) {
         options = [
           {
             value: 'top',
-            label: '置顶',
+            label: '置顶'
           },
           {
             value: 'up',
-            label: '上移',
+            label: '上移'
           }
         ]
       }
@@ -131,17 +106,17 @@ export default {
         options = options.concat([
           {
             value: 'bottom',
-            label: '置底',
+            label: '置底'
           },
           {
             value: 'down',
-            label: '下移',
+            label: '下移'
           }
         ])
       }
       options.push({
         value: 'delete',
-        label: '删除',
+        label: '删除'
       })
       return options
     }
@@ -165,15 +140,15 @@ export default {
     handleContextMenu (event) {
       event.preventDefault()
       event.stopPropagation()
-      // this.$contextMenu && this.$contextMenu(this.menuOptions).register(this.handleLevel).show(event)
+      this.$contextMenu && this.$contextMenu(this.menuOptions).register(this.handleOption).show(event)
     },
-    handleLevel (level) {
+    handleOption (key) {
       const { id } = this.layer
       const levels = this.iocFrame.layers.map(({ id, zIndex }) => ({ id, zIndex })).sort((a, b) => a.zIndex - b.zIndex)
       const sourceIndex = levels.findIndex(item => id === item.id)
       const source = levels[sourceIndex]
       let needUpdate = false
-      switch (level) {
+      switch (key) {
         case 'top': {
           if (sourceIndex < levels.length - 1) {
             needUpdate = true
@@ -227,9 +202,6 @@ export default {
         this.iocFrame.setLayersLevel(newLevel)
       }
     },
-    handleDelete () {
-      this.iocFrame.removeLayer(this.layer)
-    },
     handleMouseDown (event) {
       event.stopPropagation()
       event.preventDefault()
@@ -240,11 +212,22 @@ export default {
       const move = (moveEvent) => {
         const offsetX = moveEvent.pageX - event.pageX
         const offsetY = moveEvent.pageY - event.pageY
-        this.iocFrame.moveLayer(id, { x: x + offsetX, y: y + offsetY})
+        this.iocFrame.moveLayer(id, { x: x + offsetX, y: y + offsetY })
+        // this.$nextTick(() => {
+        //   // 触发元素移动事件，用于显示标线、吸附功能
+        //   // 后面两个参数代表鼠标移动方向
+        //   this.$eventBus.$emit('move', this.$el, offsetY > 0, offsetX > 0)
+        // })
+        this.$eventBus.$emit('move', this.$el, offsetY > 0, offsetX > 0)
       }
       const up = () => {
         document.removeEventListener('mousemove', move)
         document.removeEventListener('mouseup', up)
+        this.$nextTick(() => {
+          // 触发元素移动事件，用于显示标线、吸附功能
+          // 后面两个参数代表鼠标移动方向
+          this.$eventBus.$emit('unmove')
+        })
       }
       document.addEventListener('mousemove', this.iocFrame.setPrev, { once: true })
       document.addEventListener('mousemove', move)
@@ -303,7 +286,7 @@ export default {
       document.addEventListener('mousemove', move)
       document.addEventListener('mouseup', up)
     },
-    getPointStyle(point) {
+    getPointStyle (point) {
       const { width, height } = this.layer
       const hasT = /t/.test(point)
       const hasB = /b/.test(point)
@@ -314,30 +297,30 @@ export default {
 
       // 四个角的点
       if (point.length === 2) {
-        newLeft = hasL? 0 : width
-        newTop = hasT? 0 : height
+        newLeft = hasL ? 0 : width
+        newTop = hasT ? 0 : height
       } else {
         // 上下两点的点，宽度居中
         if (hasT || hasB) {
           newLeft = width / 2
-          newTop = hasT? 0 : height
+          newTop = hasT ? 0 : height
         }
         // 左右两边的点，高度居中
         if (hasL || hasR) {
-          newLeft = hasL? 0 : width
+          newLeft = hasL ? 0 : width
           newTop = Math.floor(height / 2)
         }
       }
 
       const style = {
-        marginLeft: hasR? '-4px' : '-3px',
+        marginLeft: hasR ? '-4px' : '-3px',
         marginTop: '-3px',
         left: `${newLeft}px`,
         top: `${newTop}px`,
-        cursor: point.split('').reverse().map(m => this.directionKey[m]).join('') + '-resize',
+        cursor: point.split('').reverse().map(m => this.directionKey[m]).join('') + '-resize'
       }
       return style
-    },
+    }
   }
 }
 </script>
@@ -350,34 +333,6 @@ export default {
   width: 100%;
   height: 100%;
   border: 1px solid currentColor;
-
-  &__header {
-    position: absolute;
-    top: -32px;
-    right: 0;
-    width: auto;
-    height: 32px;
-    line-height: 32px;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 999;
-    display: none;
-    //display: flex;
-
-    .item {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-
-      .icon {
-        width: 18px;
-        height: 18px;
-      }
-    }
-  }
 
   &__point {
     position: absolute;
@@ -426,9 +381,6 @@ export default {
   &.active {
     z-index: 999 !important;
     border: 1px solid #2266FF;
-    .shape__header {
-      display: flex;
-    }
   }
 
   &.active {

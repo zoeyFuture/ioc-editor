@@ -1,6 +1,6 @@
 {
   "name": "@xm/ioc-editor",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Ioc编辑器框架",
   "main": "dist/ioc-editor.common.js",
   "files": [

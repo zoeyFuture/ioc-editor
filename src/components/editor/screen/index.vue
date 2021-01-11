@@ -11,8 +11,8 @@
           {{page.title}}
         </slot>
       </div>
-      <Layout />
       <Container />
+      <Layout />
     </div>
   </div>
 </template>
