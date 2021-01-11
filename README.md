@@ -1,11 +1,11 @@
 todo 
 
-- [ x ] 加上 eslint-standard
-- [ x ] template 里都是 a-b 的格式
-- [ x ] 目录结构应该都是 a-b 格式
-- [ x ] editor 改为画布 canvas
-- [ x ] editor/mobile 改为 canvas/mode-flow
-- [ x ] editor/screen 改为 canvas/mode-position
+- [x] 加上 eslint-standard
+- [x] template 里都是 a-b 的格式
+- [x] 目录结构应该都是 a-b 格式
+- [x] editor 改为画布 canvas
+- [x] editor/mobile 改为 canvas/mode-flow
+- [x] editor/screen 改为 canvas/mode-position
 
 ```
 - canvas
@@ -51,15 +51,6 @@ todo
     </template>
   </ioc-editor>
 </template>
-
-import Editor from './editor'
-import EditorLeft from './left'
-import Draggable from './left/draggable'
-import EditorRight from './right'
-import Canvas from './canvas'
-import ContainerDrop from './canvas/container-drop'
-import ContextMenu from './context-menu'
-
 
 <script>
 import { Editor, EditorLeft, EditorRight, Canvas, ContainerDrop, Draggable } from 'ioc-editor'
