@@ -1,13 +1,13 @@
 <template>
-  <Demo />
+  <Position />
 </template>
 
 <script>
-import Demo from '@/page/Demo'
+import Position from '@/examples/position'
 export default {
   name: 'App',
   components: {
-    Demo
+    Position
   }
 }
 </script>

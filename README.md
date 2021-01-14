@@ -6,6 +6,7 @@ todo
 - [x] editor 改为画布 canvas
 - [x] editor/mobile 改为 canvas/mode-flow
 - [x] editor/screen 改为 canvas/mode-position
+- [ ] 逻辑和代码优化
 
 ```
 - canvas
