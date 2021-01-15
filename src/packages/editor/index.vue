@@ -4,16 +4,16 @@
       <slot name="header" />
     </div>
     <div class="ioc-editor__content">
-      <slot name="editor-left" />
-      <slot name="editor-center">
+      <slot name="left" />
+      <slot name="canvas">
         <ioc-canvas />
       </slot>
-      <slot name="editor-right" />
+      <slot name="right" />
     </div>
   </div>
 </template>
-<script>
 
+<script>
 import cloneDeep from 'lodash/cloneDeep'
 import NP from 'number-precision'
 import Canvas from '../canvas'
@@ -52,6 +52,7 @@ export default {
     return {
       iocEditor: this,
       mode: this.mode,
+      selectComponent: this.selectComponent,
       enableMarkLine: this.enableMarkLine,
       updateComponent: this.updateComponent
     }

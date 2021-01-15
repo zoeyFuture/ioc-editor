@@ -4,7 +4,7 @@
     behaviour="copy"
     class="ioc-mode-flow-draggable"
   >
-    <smooth-draggable>
+    <smooth-draggable class="flow-draggable">
       <slot></slot>
     </smooth-draggable>
   </smooth-container>
@@ -41,3 +41,24 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="less">
+
+.ioc-mode-flow-draggable {
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .flow-draggable {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+  }
+}
+
+</style>

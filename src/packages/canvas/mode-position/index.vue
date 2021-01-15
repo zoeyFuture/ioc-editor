@@ -5,13 +5,13 @@
     @mousedown.stop="handleMouseDown"
   >
     <div
-      :style="style"
+      :style="canvasStyle"
       class="ioc-canvas"
       @click="handleClick"
     >
       <div class="ioc-canvas__title">
         <slot name="title">
-          {{page.title}} ({{canvasPosition.x}},{{canvasPosition.y}})
+          {{canvas.title}}
         </slot>
       </div>
       <container-drop :components="components"/>
@@ -35,7 +35,7 @@ export default {
   },
 
   props: {
-    page: {
+    canvas: {
       type: Object,
       default: () => ({})
     }
@@ -60,10 +60,16 @@ export default {
   },
 
   computed: {
-    style () {
+    canvasStyle () {
       const { scale } = this.iocEditor
       const { x, y } = this.canvasPosition
-      const { color, backgroundImage, backgroundColor, size: { width, height } } = this.page
+      const {
+        color = 'white',
+        backgroundImage,
+        backgroundColor = 'gray',
+        size = {}
+      } = this.canvas
+      const { width = 1600, height = 900 } = size
       return {
         color,
         top: `${y}px`,
@@ -119,7 +125,6 @@ export default {
   .ioc-canvas {
     position: relative;
     box-sizing: border-box;
-    background-color: #fff;
     color: black;
     display: flex;
     align-items: center;
@@ -128,14 +133,12 @@ export default {
     -moz-transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
     -o-transform-origin: 0 0;
-    width: 1920px;
-    height: 100%;
 
     &__title {
       width: 100%;
       height: 20px;
       line-height: 20px;
-      color: #0000004D;
+      color: currentColor;
       font-size: 14px;
       background-color: transparent;
       position: absolute;
@@ -147,7 +150,6 @@ export default {
       width: 100%;
       height: 20px;
       line-height: 20px;
-      color: #0000004D;
       font-size: 14px;
       background-color: transparent;
       position: absolute;

@@ -1,14 +1,8 @@
 <template>
-  <mode-flow
-    v-if="mode === 'flow'"
-    :page="page"
-  >
+  <mode-flow v-if="mode === 'flow'" :canvas="canvas">
     <slot />
   </mode-flow>
-  <mode-position
-    v-else
-    :page="page"
-  >
+  <mode-position v-else :canvas="canvas">
     <slot />
   </mode-position>
 </template>
@@ -18,10 +12,12 @@ import ModeFlow from './mode-flow'
 import ModePosition from './mode-position'
 export default {
   name: 'ioc-canvas',
+
   components: {
     ModeFlow,
     ModePosition
   },
+
   props: {
     // 自定义的渲染组件
     componentRender: {
@@ -29,10 +25,8 @@ export default {
       require: true
     },
 
-    page: {
-      type: Object,
-      default: () => ({})
-    }
+    // 画布配置
+    canvas: Object
   },
 
   inject: ['mode'],

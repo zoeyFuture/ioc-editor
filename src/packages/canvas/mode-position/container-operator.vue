@@ -148,7 +148,6 @@ export default {
 
       // 按下 Ctrl 表示多选
       if (keyCode === 91) {
-        console.log('includes:', id, multiSelect.includes(id), JSON.stringify(multiSelect))
         if (multiSelect.includes(id)) {
           // 已选中则取消选择
           this.iocEditor.removeMultiSelect(id)
