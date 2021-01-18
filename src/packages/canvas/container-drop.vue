@@ -38,11 +38,6 @@ export default {
     canDrop: {
       type: Function,
       default: () => () => true
-    },
-
-    page: {
-      type: Object,
-      default: () => ({})
     }
   },
 

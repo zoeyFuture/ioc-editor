@@ -89,8 +89,12 @@ export default {
       }
     },
 
-    editor (newEditor) {
-      this.components = newEditor.components || []
+    'editor.components': {
+      handler: function (components = []) {
+        this.components = components
+      },
+      deep: true,
+      immediate: true
     }
   },
 
