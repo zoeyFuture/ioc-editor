@@ -1,41 +1,45 @@
 <template>
   <ioc-editor
-    mode="position"
-    v-model="screen"
+    mode="flow"
+    v-model="mobile"
   >
     <template #header>
       <div class="header">
+        <Button type="primary" @click="$emit('change', 'position')">
+          切换绝对布局
+        </Button>
         <Button @click="handleReset">
           清空画布
         </Button>
-        <Button :disabled="!screen.iocEditor.canUndo" @click="screen.iocEditor.undo()">
+        <Button :disabled="!mobile.iocEditor.canUndo" @click="mobile.iocEditor.undo()">
           撤销
         </Button>
-        <Button :disabled="!screen.iocEditor.canRedo" @click="screen.iocEditor.redo()">
+        <Button :disabled="!mobile.iocEditor.canRedo" @click="mobile.iocEditor.redo()">
           恢复
         </Button>
-
         <div class="item">
           画布大小:
-          <InputNumber v-model="page.size.width"/> *
-          <InputNumber v-model="page.size.height"/>
+          <InputNumber v-model="canvas.size.width"/> *
+          <InputNumber v-model="canvas.size.height"/>
         </div>
+        <Button @click="handleSave">
+          保存
+        </Button>
       </div>
     </template>
-    <template #editor-left>
+    <template #left>
       <Left />
     </template>
-    <template #editor-center>
-      <ioc-canvas :component-render="componentRender" :page="page"/>
+    <template #canvas>
+      <ioc-canvas :component-render="componentRender" :canvas="canvas"/>
     </template>
-    <template #editor-right>
+    <template #right>
       <Right />
     </template>
   </ioc-editor>
 </template>
 
 <script>
-import NP from 'number-precision'
 import { Modal, Button, InputNumber } from 'ant-design-vue'
 import IocEditor from '@/packages/editor'
 import IocCanvas from '@/packages/canvas'
@@ -43,7 +47,7 @@ import Left from './left'
 import Right from './right'
 import ComponentRender from './component-render'
 export default {
-  name: 'screen',
+  name: 'flow',
 
   components: {
     Button,
@@ -57,23 +61,19 @@ export default {
   data () {
     return {
       componentRender: ComponentRender, // 组件渲染
-      screen: {
+      mobile: {
         components: [],
         iocEditor: {}
       },
-      page: {
+      canvas: {
         title: '绝对布局 - 中屏页面',
+        backgroundColor: '#fff',
+        backgroundImage: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201508%2F14%2F20150814204044_mciYt.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613290181&t=4171a1b6b74b4b0c2a8fa22af26ddf71',
         size: {
-          width: 1200,
+          width: 375,
           height: 680
         }
       }
-    }
-  },
-
-  computed: {
-    routeInfo () {
-      return JSON.parse(localStorage.screenInfo || '{}')
     }
   },
 
@@ -88,35 +88,33 @@ export default {
         content: '将恢复到上次保存后的状态',
         onOk: () => {
           // 更新组件列表
-          this.screen.iocEditor.setComponents([])
+          this.mobile.iocEditor.setComponents([])
         }
       })
     },
 
     handleSelect (id) {
       // 选中某个组件
-      this.screen.iocEditor.setSelect(id)
+      this.mobile.iocEditor.setSelect(id)
     },
 
     handleScale ({ key }) {
       if (key === -1) {
         // 适配屏幕
-        this.screen.iocEditor.adaptScreen()
+        this.mobile.iocEditor.adaptScreen()
       } else {
-        this.screen.iocEditor.setScale(key)
+        this.mobile.iocEditor.setScale(key)
       }
     },
 
-    handleIncreaseScale () {
-      this.screen.iocEditor.setScale(NP.minus(this.screen.iocEditor.scale, 0.1))
-    },
-
-    handleDecreaseScale () {
-      this.screen.iocEditor.setScale(NP.plus(this.screen.iocEditor.scale, 0.1))
-    },
-
     handleSave () {
-
+      const { components } = this.mobile
+      const params = {
+        page: this.canvas,
+        components
+      }
+      console.log(JSON.stringify(params, 0, 2))
+      alert(JSON.stringify(params, 0, 2))
     }
   }
 }

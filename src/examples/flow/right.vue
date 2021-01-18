@@ -9,21 +9,8 @@
         <FormItem label="标题" prop="title">
           <Input v-model="formValues.title"/>
         </FormItem>
-        <FormItem label="位置" prop="position">
-          <FormItem label="x" prop="x">
-            <InputNumber v-model="formValues.position.x"/>
-          </FormItem>
-          <FormItem label="y" prop="y">
-            <InputNumber v-model="formValues.position.y"/>
-          </FormItem>
-        </FormItem>
-        <FormItem label="尺寸" prop="size">
-          <FormItem label="宽度" prop="width">
-            <InputNumber v-model="formValues.size.width"/>
-          </FormItem>
-          <FormItem label="高度" prop="height">
-            <InputNumber v-model="formValues.size.height"/>
-          </FormItem>
+        <FormItem label="内容" prop="title">
+          <Input v-model="formValues.content"/>
         </FormItem>
       </FormModel>
     </div>
@@ -34,7 +21,7 @@
 </template>
 
 <script>
-import { FormModel, Input, InputNumber } from 'ant-design-vue'
+import { FormModel, Input } from 'ant-design-vue'
 import { IocEditorRight } from '@'
 export default {
   name: 'right',
@@ -43,8 +30,7 @@ export default {
     IocEditorRight,
     FormModel,
     FormItem: FormModel.Item,
-    Input,
-    InputNumber
+    Input
   },
 
   inject: ['iocEditor', 'updateComponent'],

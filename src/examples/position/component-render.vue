@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .render {
   width: 100%;
   height: 100%;
@@ -36,8 +36,8 @@ export default {
 
   &__header {
     width: 100%;
-    height: 39px;
-    line-height: 39px;
+    height: 32px;
+    line-height: 32px;
   }
 
   &__content {

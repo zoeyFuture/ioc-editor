@@ -2,10 +2,13 @@
   <ioc-editor
     mode="position"
     v-model="screen"
-    enableMarkLine="true"
+    :enableMarkLine="true"
   >
     <template #header>
       <div class="header">
+        <Button type="primary" @click="$emit('change', 'flow')">
+          切换流式布局
+        </Button>
         <Button @click="handleReset">
           清空画布
         </Button>
@@ -15,21 +18,23 @@
         <Button :disabled="!screen.iocEditor.canRedo" @click="screen.iocEditor.redo()">
           恢复
         </Button>
-
         <div class="item">
           画布大小:
-          <InputNumber v-model="page.size.width"/> *
-          <InputNumber v-model="page.size.height"/>
+          <InputNumber v-model="canvas.size.width"/> *
+          <InputNumber v-model="canvas.size.height"/>
         </div>
+        <Button @click="handleSave">
+          保存
+        </Button>
       </div>
     </template>
-    <template #editor-left>
+    <template #left>
       <Left />
     </template>
-    <template #editor-center>
-      <ioc-canvas :component-render="componentRender" :page="page"/>
+    <template #center>
+      <ioc-canvas :component-render="componentRender" :canvas="canvas"/>
     </template>
-    <template #editor-right>
+    <template #right>
       <Right />
     </template>
   </ioc-editor>
@@ -44,7 +49,7 @@ import Left from './left'
 import Right from './right'
 import ComponentRender from './component-render'
 export default {
-  name: 'screen',
+  name: 'position',
 
   components: {
     Button,
@@ -62,8 +67,11 @@ export default {
         components: [],
         iocEditor: {}
       },
-      page: {
+      canvas: {
         title: '绝对布局 - 中屏页面',
+        color: 'white',
+        backgroundColor: 'white',
+        backgroundImage: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201508%2F14%2F20150814204044_mciYt.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613290181&t=4171a1b6b74b4b0c2a8fa22af26ddf71',
         size: {
           width: 1200,
           height: 680
@@ -117,7 +125,13 @@ export default {
     },
 
     handleSave () {
-
+      const { components } = this.screen
+      const params = {
+        page: this.canvas,
+        components
+      }
+      console.log(JSON.stringify(params, 0, 2))
+      alert(JSON.stringify(params, 0, 2))
     }
   }
 }

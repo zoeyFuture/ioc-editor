@@ -1,7 +1,7 @@
 <template>
   <ioc-editor-left>
     <div class="left">
-      <div clas="group" v-if="false">
+      <div clas="group">
         <div class="group__header">
           容器
         </div>
@@ -68,19 +68,11 @@ export default {
       items: [
         {
           title: '组件1',
-          content: '哈哈哈，我是组件1',
-          size: {
-            width: 180,
-            height: 180
-          }
+          content: '哈哈哈，我是组件1'
         },
         {
           title: '组件2',
-          content: '哈哈哈，我是组件2',
-          size: {
-            width: 240,
-            height: 240
-          }
+          content: '哈哈哈，我是组件2'
         },
         {
           title: '组件3',
@@ -89,11 +81,7 @@ export default {
             return {
               title: '组件3',
               id: Date.now(),
-              content: '哈哈哈，我是初始化之后的组件3',
-              size: {
-                width: 320,
-                height: 320
-              }
+              content: '哈哈哈，我是初始化之后的组件3'
             }
           }
         }
