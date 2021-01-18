@@ -1,7 +1,5 @@
 [TOC]
 
-# 中屏可视化框架
-
 # 背景
 
 可视化编辑器在项目中很常见，常见的功能无非是拖入容器或组件，配置组件属性，导出组件配置等，
@@ -12,29 +10,28 @@
 
 -	规范并统一编辑器的交互和布局样式
 -	统一解决容器嵌套问题
--	支持时间旅行
+-	时间旅行
 
 # 方案
 
-小屏拖拽：vue-smooth-dnd，提供友好的拖拽动画和组件嵌套解决方案
-html5的拖拽，可以精确定位坐标位置
-基于鼠标事件的拖拽，自定义的元素拖拽，避免与其他鼠标事件的冲突
+小屏拖拽：[vue-smooth-dnd](https://github.com/kutlugsahin/vue-smooth-dnd)，提供友好的拖拽动画和组件嵌套解决方案
+中屏拖拽：html5的拖拽 + 基于鼠标事件的拖拽，可以精确定位坐标位置
 
 # 安装与使用
 
 可视化页面分为流式布局（flow）和绝对布局（position）两种模式，分别对应小屏（手机端）和中屏（PC端）的样式，不同模式下的画布和组件都是可配置的，包括尺寸、背景、前景色等
 
-[小屏（手机端）](http://localhost:8082/)
+[小屏（手机端）](http://baas.uban360.net:21006/compose-admin/#/mobile)
 
 ![](https://global.uban360.com/sfs/file?digest=fid4e5a7b9a854ea65f9fc56aa83be185a3&fileType=2)
 
-[中屏（PC端）](http://localhost:8082/)
+[中屏（PC端）](http://baas.uban360.net:21006/compose-admin/#/screen)
 
 ![](https://global.uban360.com/sfs/file?digest=fid6114f63270e45320b66d77c9f64d5010&fileType=2)
 
 ## 组件列表
 
-框架提供目前只提供6个组件：IocEditor、IocEditorLeft、IocEditorRight,、IocDraggable、IocCanvas、IocContainerDrop
+框架提供目前只提供6个组件：IocEditor、IocEditorLeft、IocEditorRight,、IocDraggable、IocCanvas、IocContainerDrop，部分组件内部以依赖 vue-smooth-dnd 组件，所以这里也会导出 vue-smooth-dnd 的组件：SmoothContainer、SmoothDraggable，用法请查看：[vue-smooth-dnd](https://github.com/kutlugsahin/vue-smooth-dnd)
 
 [IocEditor](https://github.com/shinemofe/ioc-editor/blob/master/src/packages/editor/index.vue)
 
@@ -42,8 +39,8 @@ IocEditor 主题样式框架，确保使用是在App.vue中设置宽高，一般
 
 属性配置：
 
-|  属性    | 功能描述  | 是否必填 | 可选值 |
-|  ----   | ----  | ---- |
+| 属性 | 功能描述 | 是否必填 | 可选值 |
+|  ---- | ---- | ---- | ---- |
 |  v-model | 可视化框架对象 | true | { components: [], iocEditor: {} }，components 保存当前画布中的组件列表， iocEditor属性会返回可视化框架实例 |
 |  mode   | 可视化布局模式  | true | flow - 流式布局，对应小屏（手机端样式）,position - 绝对布局，对应中屏屏（PC端样式）|
 
@@ -52,14 +49,14 @@ IocEditor 主题样式框架，确保使用是在App.vue中设置宽高，一般
 
 IocEditorLeft 仅提供左侧栏布局，需要和 IocDraggable 使用，表示左侧需要拖拽的组件资源
 
-[IocEditorLeft](https://github.com/shinemofe/ioc-editor/blob/master/src/packages/editor/index.vue)
+[IocDraggable](https://github.com/shinemofe/ioc-editor/blob/master/src/packages/left/draggable.vue)
 
 IocDraggable 声明需要拖拽的元素
 
 属性配置：
 
-|  属性    | 功能描述 | 是否必填 | 可选值 |
-|  ----   | ----  | ---- |
+| 属性 | 功能描述 | 是否必填 | 可选值 |
+|  ---- | ---- | ---- | ---- |
 |  item | 拖拽的参数 | true | 如果item中包含 init() 初始化方法，会调用 init() 返回初始化后的对象（主要是ID），如果没有，则返回 { ...item, id: Date.now() } |
 
 ```html
@@ -126,14 +123,14 @@ export default {
 
 ```
 
-[IocCanvas](https://github.com/shinemofe/ioc-editor/blob/master/src/packages/editor/index.vue)
+[IocCanvas](https://github.com/shinemofe/ioc-editor/blob/master/src/packages/canvas/index.vue)
 
 IocCanvas表示是画布区域，需要配置自定义的渲染组件，用于渲染左侧拖入组件的样式，当需要对画布做定制化需求时，可以配置画布的参数
 
 属性配置：
 
-|  属性    | 功能描述  | 是否必填 | 可选值 |
-|  ----   | ----  | ---- |
+| 属性 | 功能描述 | 是否必填 | 可选值 |
+|  ---- | ---- | ---- | ---- |
 |  canvas | 画布对象  | false | 目前只支持配置画布的前景色 color、背景色 backgroundColor、背景图片 backgroundImage，画布尺寸 size: { width, height }，小屏默认配置：{ color: 'black', backgroundColor: 'white', size: { width: 375, height: 680 } }, 中屏默认配置：{ color: 'white', backgroundColor: 'gray', size: { width: 1600, height: 900 } }
 |  component-render |  自定义的渲染组件  | true | 框架会传入当前组件对象参数 component，用于自定义渲染 |
 
@@ -189,14 +186,14 @@ export default {
 </script>
 ```
 
-[IocContainerDrop](https://github.com/shinemofe/ioc-editor/blob/master/src/packages/editor/index.vue)
+[IocContainerDrop](https://github.com/shinemofe/ioc-editor/blob/master/src/packages/canvas/container-drop.vue)
 
 IocContainerDrop 是画布中的容器组件，可以通过容器来对组件进行分组
 
 属性配置：
 
-|  属性    | 功能描述 | 是否必填 | 可选值 |
-|  ----   | ----  | ---- |
+| 属性 | 功能描述 | 是否必填 | 可选值 |
+|  ---- | ---- | ---- | ---- |
 |  pid | 容器所属的组件id | false | 组件的都是通过pid分组的，不传为 undefined，如果是子层级，则必填  |
 |  group | 容器内的组名 | false | 当前容器的组名，默认是 container |
 |  can-drop | 是否可放置 | false | 接受两个参数: group 当前容器的组名，source，当前拖拽的组件内容，返回 true 表示可放置，false 表示不可放置，默认返回 true |
