@@ -21,7 +21,7 @@
 
 import IocContainerDrop from '@/packages/canvas/container-drop'
 export default {
-  name: 'screen-render',
+  name: 'flow-render',
 
   components: {
     IocContainerDrop

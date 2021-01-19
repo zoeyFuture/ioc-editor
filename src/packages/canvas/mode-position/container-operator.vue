@@ -334,6 +334,7 @@ export default {
   width: 100%;
   height: 100%;
   border: 1px solid currentColor;
+  cursor: pointer;
 
   &__header {
     position: absolute;

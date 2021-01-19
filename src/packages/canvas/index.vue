@@ -36,6 +36,5 @@ export default {
       componentRender: this.componentRender
     }
   }
-
 }
 </script>

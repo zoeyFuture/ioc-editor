@@ -13,7 +13,8 @@
 <script>
 
 export default {
-  name: 'screen-render',
+  name: 'position-render',
+
   props: {
     component: {
       type: Object,
@@ -33,6 +34,7 @@ export default {
   flex-direction: column;
   cursor: pointer;
   padding: 4px;
+  background-color: gray;
 
   &__header {
     width: 100%;
