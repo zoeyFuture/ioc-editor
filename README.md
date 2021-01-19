@@ -1,4 +1,65 @@
-[TOC]
+# IocEditor
+
+基于 Vue2 的通用拖拽方案封装
+
+# Usage
+
+指定公司的npm源安装
+
+```bash
+npm --registry=http://10.0.10.59:7001 install @xm/ioc-editor -S
+```
+或
+```bash
+xnpm install @xm/ioc-editor -S
+```
+
+引入
+
+```
+// 默认情况下，会全局注册其中的组件
+import '@xm/ioc-editor'
+
+// 或自行单独注册
+import {
+  IocEditor,
+  IocEditorLeft,
+  IocEditorRight,
+  IocDraggable,
+  IocCanvas,
+  IocContainerDrop
+} from '@xm/ioc-editor'
+```
+
+# Sample Examlple
+
+ioc-editor 将所有的内容包裹起来，内部通过插槽解耦
+
+```html
+<template>
+  <ioc-editor mode="position" v-model="screen" >
+    <template #header>
+      <div class="header">
+        自定义的头部内容
+      </div>
+    </template>
+    <template #left>
+      <div class="left">
+        自定义的左侧内容
+      </div>
+    </template>
+    <template #canvas>
+      <ioc-canvas :component-render="componentRender" :canvas="canvas"/>
+    </template>
+    <template #right>
+      <div class="right">
+        自定义的右侧内容
+      </div>
+    </template>
+  </ioc-editor>
+</template>
+```
+
 
 # 背景
 
