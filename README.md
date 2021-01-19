@@ -16,7 +16,7 @@ xnpm install @xm/ioc-editor -S
 
 引入
 
-```
+```js
 // 默认情况下，会全局注册其中的组件
 import '@xm/ioc-editor'
 
@@ -59,6 +59,15 @@ ioc-editor 将所有的内容包裹起来，内部通过插槽解耦
   </ioc-editor>
 </template>
 ```
+
+# 组件清单
+
+- IocEditor 
+- IocEditorLeft
+-  IocEditorRight
+-  IocDraggable
+-  IocCanvas
+-  IocContainerDrop
 
 
 # 背景
