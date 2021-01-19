@@ -6,7 +6,7 @@
 
 git地址：[Github](https://github.com/shinemofe/ioc-editor)
 
-Demo地址：[Demo](https://zoeyfuture.github.io/ioc-editor/#/)
+Demo地址：[Demo](https://zoeyfuture.github.io/ioc-editor/dist/#/)
 
 # Usage
 
