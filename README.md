@@ -91,7 +91,7 @@ ioc-editor组件框架，针对手机端流式布局和PC端绝对布局做了�
 
 # 方案
 
-小屏拖拽是基于vue-smooth-dnd的可拖拽库，它提供友好的拖拽动画和容器嵌套交互，
+小屏拖拽是基于 [vue-smooth-dnd](https://github.com/search?q=vue-smooth-dnd) 的可拖拽库，它提供友好的拖拽动画和容器嵌套交互，
 中屏的拖拽是使用html5的拖拽 + 基于鼠标事件的拖拽实现，可以精确定位坐标位置
 
 # 安装与使用
