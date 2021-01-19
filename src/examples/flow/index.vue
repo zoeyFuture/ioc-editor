@@ -60,13 +60,13 @@ export default {
 
   data () {
     return {
-      componentRender: ComponentRender, // 组件渲染
+      componentRender: ComponentRender, // 渲染组件
       mobile: {
         components: [],
         iocEditor: {}
       },
       canvas: {
-        title: '绝对布局 - 中屏页面',
+        title: '流式布局',
         backgroundColor: '#fff',
         backgroundImage: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201508%2F14%2F20150814204044_mciYt.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613290181&t=4171a1b6b74b4b0c2a8fa22af26ddf71',
         size: {
@@ -78,7 +78,7 @@ export default {
   },
 
   created () {
-    document.title = '中屏可视化'
+    document.title = '流式布局'
   },
 
   methods: {

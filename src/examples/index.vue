@@ -1,13 +1,21 @@
 <template>
  <div class="examples">
-   <Flow v-if="mode === 'flow'" @change="handleChange"/>
-   <Position v-if="mode==='position'" @change="handleChange"/>
+   <flow
+     v-if="mode === 'flow'"
+     :key="mode"
+     @change="handleChange"
+   />
+   <position
+     v-if="mode==='position'"
+     :key="mode"
+     @change="handleChange"
+   />
  </div>
 </template>
 
 <script>
-import Position from './position'
 import Flow from './flow'
+import Position from './position'
 export default {
   name: 'examples',
 
