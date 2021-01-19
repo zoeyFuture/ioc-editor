@@ -62,7 +62,7 @@ export default {
         {
           title: '容器3',
           content: '容器3只能拖入组件',
-          containerType: 2
+          containerType: 3
         }
       ],
       items: [

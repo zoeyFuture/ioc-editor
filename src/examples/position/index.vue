@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import NP from 'number-precision'
 import { Modal, Button, InputNumber } from 'ant-design-vue'
 import IocEditor from '@/packages/editor'
 import IocCanvas from '@/packages/canvas'
@@ -114,14 +113,6 @@ export default {
       } else {
         this.screen.iocEditor.setScale(key)
       }
-    },
-
-    handleIncreaseScale () {
-      this.screen.iocEditor.setScale(NP.minus(this.screen.iocEditor.scale, 0.1))
-    },
-
-    handleDecreaseScale () {
-      this.screen.iocEditor.setScale(NP.plus(this.screen.iocEditor.scale, 0.1))
     },
 
     handleSave () {
