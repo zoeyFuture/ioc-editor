@@ -1,6 +1,6 @@
 <template>
   <div
-    draggable="true"
+    :draggable="draggable"
     class="ioc-mode-position-draggable"
     @mousedown.stop
     @dragstart.stop="onDragStart"
@@ -17,6 +17,11 @@ export default {
     item: {
       type: Object,
       require: true
+    },
+
+    draggable: {
+      type: Boolean,
+      default: () => true
     }
   },
 

@@ -24,6 +24,11 @@ export default {
     item: {
       type: Object,
       require: true
+    },
+
+    draggable: {
+      type: Boolean,
+      default: () => true
     }
   },
 

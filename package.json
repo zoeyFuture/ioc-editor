@@ -1,6 +1,6 @@
 {
   "name": "@xm/ioc-editor",
-  "version": "0.2.21",
+  "version": "0.2.22",
   "description": "Ioc编辑器框架",
   "scripts": {
     "serve": "vue-cli-service serve",

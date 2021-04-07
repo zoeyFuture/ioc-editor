@@ -29,12 +29,12 @@ export default {
   computed: {
     canvasStyle () {
       const {
-        color = 'black',
-        backgroundColor = 'white',
+        color,
+        backgroundColor,
         backgroundImage,
         size = {}
       } = this.canvas
-      const { width = 375, height = 680 } = size
+      const { width, height } = size
       return {
         color,
         backgroundColor,

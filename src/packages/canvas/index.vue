@@ -26,14 +26,52 @@ export default {
     },
 
     // 画布配置
-    canvas: Object
+    canvas: {
+      type: Object,
+      default: () => ({
+        size: {
+          width: 1600,
+          height: 900
+        },
+        color: 'black',
+        backgroundColor: 'white'
+      })
+    },
+
+    // 画布是否剧中
+    center: {
+      type: Boolean,
+      default: false
+    },
+
+    // 组件是否可拖拽
+    componentDraggable: {
+      type: Boolean,
+      default: true
+    },
+
+    // 组件是否可操作
+    componentOperation: {
+      type: Boolean,
+      default: true
+    },
+
+    // 空容器提示文案
+    emptyPlaceholder: {
+      type: String,
+      default: '请从左侧组件库拖入组件'
+    }
   },
 
   inject: ['mode'],
 
   provide () {
     return {
-      componentRender: this.componentRender
+      center: this.center,
+      emptyPlaceholder: this.emptyPlaceholder,
+      componentRender: this.componentRender,
+      componentDraggable: this.componentDraggable,
+      componentOperation: this.componentOperation
     }
   }
 }

@@ -18,7 +18,7 @@
     <template v-else>
       <div class="empty">
         <i class="icon icon-editor-empty" />
-        <label class="empty__tips">请从左侧拖入组件</label>
+        <label class="empty__tips">{{emptyPlaceholder}}</label>
       </div>
     </template>
   </div>
@@ -53,8 +53,10 @@ export default {
   },
 
   inject: [
+    'iocEditor',
     'canvasPosition',
-    'iocEditor'
+    'emptyPlaceholder',
+    'componentDraggable'
   ],
 
   computed: {

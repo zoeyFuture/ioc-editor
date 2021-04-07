@@ -3,23 +3,27 @@
     :style="operatorStyle"
     :class="{
       'select': isSelect,
-      'multi-select': isMultiSelect
+      'multi-select': isMultiSelect,
+      'draggable-disabled': !componentDraggable
     }"
     class="ioc-container-operator"
-    @mousedown.stop="handleMouseDown"
+    @mousedown="handleMouseDown"
     @click.stop
     @contextmenu.stop.prevent
   >
     <div
+      v-show="componentOperation"
       v-for="resizePoint in resizePoints"
       :key="resizePoint"
       :class="resizePoint"
       :style="getResizePointStyle(resizePoint)"
       class="ioc-container-operator__point"
       @mousedown.stop.prevent="handleResizePointMouseDown($event, resizePoint)"
+    />
+    <div
+      v-if="componentOperation"
+      class="ioc-container-operator__header"
     >
-    </div>
-    <div class="ioc-container-operator__header">
       <Tooltip
         v-for="option in operatorOptions"
         :key="option.value"
@@ -39,7 +43,6 @@
       <slot/>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -58,7 +61,11 @@ export default {
     }
   },
 
-  inject: ['iocEditor'],
+  inject: [
+    'iocEditor',
+    'componentDraggable',
+    'componentOperation'
+  ],
 
   data () {
     return {
@@ -220,7 +227,13 @@ export default {
     handleDelete () {
       this.iocEditor.removeComponent(this.component.id)
     },
+
     handleMouseDown (event) {
+      if (!this.componentDraggable) {
+        return false
+      }
+      event.stopPropagation()
+
       this.handleSelect()
       const { position: { x, y } } = this.component
       const mouseMove = (mouseMoveEvent) => {
@@ -406,6 +419,7 @@ export default {
       bottom: calc(-@pointSize/2);
     }
   }
+
   &:hover,
   &.select {
     z-index: 999 !important;
@@ -422,6 +436,9 @@ export default {
     .ioc-container-operator__point {
       display: none !important;
     }
+  }
+  &.draggable-disabled {
+    border: 1px solid currentColor !important;
   }
   &__content {
     width: 100%;

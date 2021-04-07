@@ -2,12 +2,14 @@
   <mode-flow-draggable
     v-if="mode === 'flow'"
     :item="item"
+    :draggable="draggable"
   >
     <slot />
   </mode-flow-draggable>
   <mode-position-draggable
     v-else
     :item="item"
+    :draggable="draggable"
   >
     <slot />
   </mode-position-draggable>
@@ -28,6 +30,11 @@ export default {
     item: {
       type: Object,
       require: true
+    },
+
+    draggable: {
+      type: Boolean,
+      default: () => true
     }
   },
 

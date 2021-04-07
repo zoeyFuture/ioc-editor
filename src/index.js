@@ -1,9 +1,16 @@
-import IocEditor from '@/packages/editor'
-import IocEditorLeft from '@/packages/left'
-import IocEditorRight from '@/packages/right'
-import IocDraggable from '@/packages/left/draggable'
-import IocCanvas from '@/packages/canvas'
-import IocContainerDrop from '@/packages/canvas/container-drop'
+// import IocEditor from '@/packages/editor'
+// import IocEditorLeft from '@/packages/left'
+// import IocEditorRight from '@/packages/right'
+// import IocDraggable from '@/packages/left/draggable'
+// import IocCanvas from '@/packages/canvas'
+// import IocContainerDrop from '@/packages/canvas/container-drop'
+
+import IocEditor from './packages/editor'
+import IocEditorLeft from './packages/left'
+import IocEditorRight from './packages/right'
+import IocDraggable from './packages/left/draggable'
+import IocCanvas from './packages/canvas'
+import IocContainerDrop from './packages/canvas/container-drop'
 
 import {
   Container as SmoothContainer,

@@ -102,9 +102,11 @@ export default {
     canUndo () {
       return this.past.length > 0
     },
+
     canRedo () {
       return this.future.length > 0
     },
+
     selectComponent () {
       if (this.select) {
         return this.components.find(component => component.id === this.select)
@@ -125,7 +127,7 @@ export default {
         iocEditor: this
       })
     },
-    // 适配屏幕
+
     adaptScreen (screenWidth = 1920, screenHeight = 1200) {
       const clientWidth = document.body.clientWidth
       const clientHeight = document.body.clientHeight
@@ -134,18 +136,23 @@ export default {
       const scale = NP.round(widthScale > heightScale ? heightScale : widthScale, 1)
       this.setScale(scale)
     },
+
     setKeyCode (keyCode) {
       this.keyCode = keyCode
     },
+
     setScale (scale) {
       this.scale = scale
     },
+
     setSelect (id) {
       this.select = id
     },
+
     setMultiSelect (multiSelect = []) {
       this.multiSelect = multiSelect
     },
+
     addMultiSelect (id) {
       if (this.select && !this.multiSelect.includes(this.select)) {
         this.multiSelect.push(this.select)
@@ -155,9 +162,11 @@ export default {
         this.multiSelect.push(id)
       }
     },
+
     removeMultiSelect (id) {
       this.multiSelect = this.multiSelect.filter(item => item !== id)
     },
+
     setMultiSelectInfo (multiSelectInfo) {
       this.multiSelectInfo = multiSelectInfo
     },
@@ -223,9 +232,6 @@ export default {
       }
     },
 
-    // TODO splice  this.$set 的区别
-    // 通过下标配置为什么自动设置成响应式
-
     updateComponent (component) {
       const index = this.components.findIndex(item => item.id === component.id)
       if (index > -1) {
@@ -243,15 +249,6 @@ export default {
       }
     },
 
-    updateComponentSize (id, size) {
-      const target = this.components.find(item => item.id === id)
-      if (target) {
-        target.size.width = size.width
-        target.size.height = size.height
-        this.emitChange(this.components)
-      }
-    },
-
     resetComponentsLevels (levels) {
       this.components.forEach(component => {
         component.zIndex = levels[component.id]
@@ -259,7 +256,6 @@ export default {
       this.emitChange()
     },
 
-    // 保存上一步
     setPrev () {
       if (this.past.length === 20) {
         this.past.shift()
@@ -267,30 +263,29 @@ export default {
       this.past.push(JSON.stringify(this.components))
     },
 
-    // 获取上一步
     getPrev () {
       if (this.past.length > 0) {
         this.components = JSON.parse(this.past.pop())
         this.emitChange()
       }
     },
-    // 保存下一步
+
     setNext () {
       this.future.unshift(JSON.stringify(this.components))
     },
-    // 获取下一步
+
     getNext () {
       if (this.future.length > 0) {
         this.components = JSON.parse(this.future.shift())
         this.emitChange()
       }
     },
-    // 上一步
+
     undo  () {
       this.setNext()
       this.getPrev()
     },
-    // 下一步
+
     redo () {
       this.setPrev()
       this.getNext()

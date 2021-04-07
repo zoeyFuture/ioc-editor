@@ -5,6 +5,7 @@
     @mousedown.stop="handleMouseDown"
   >
     <div
+      id="ioc-canvas"
       :style="canvasStyle"
       class="ioc-canvas"
       @click="handleClick"
@@ -41,7 +42,7 @@ export default {
     }
   },
 
-  inject: ['iocEditor'],
+  inject: ['iocEditor', 'center'],
 
   provide () {
     return {
@@ -56,6 +57,21 @@ export default {
         x: 300 + 30,
         y: 30
       }
+    }
+  },
+
+  watch: {
+    center: {
+      handler (val) {
+        if (val) {
+          const { size: { width = 1600, height = 900 } } = this.canvas
+          this.canvasPosition = {
+            x: window.innerWidth / 2 - width / 2,
+            y: window.innerHeight / 2 - height / 2
+          }
+        }
+      },
+      immediate: true
     }
   },
 
