@@ -17,7 +17,7 @@
       </div>
       <container-drop :components="components"/>
       <container-multi-select />
-      <container-operator-mark-line/>
+      <container-operator-mark-line v-if="markLine"/>
     </div>
   </div>
 </template>
@@ -42,7 +42,11 @@ export default {
     }
   },
 
-  inject: ['iocEditor', 'center'],
+  inject: [
+    'iocEditor',
+    'center',
+    'markLine'
+  ],
 
   provide () {
     return {

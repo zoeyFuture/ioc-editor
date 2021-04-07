@@ -38,8 +38,14 @@ export default {
       })
     },
 
-    // 画布是否剧中
+    // 画布居中
     center: {
+      type: Boolean,
+      default: false
+    },
+
+    // 辅助线
+    markLine: {
       type: Boolean,
       default: false
     },
@@ -68,6 +74,7 @@ export default {
   provide () {
     return {
       center: this.center,
+      markLine: this.markLine,
       emptyPlaceholder: this.emptyPlaceholder,
       componentRender: this.componentRender,
       componentDraggable: this.componentDraggable,

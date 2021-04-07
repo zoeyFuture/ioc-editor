@@ -32,7 +32,12 @@
       <Left />
     </template>
     <template #canvas>
-      <ioc-canvas :component-render="componentRender" :canvas="canvas"/>
+      <ioc-canvas
+        :component-render="componentRender"
+        :canvas="canvas"
+        :center="true"
+        :auxiliary-line="true"
+      />
     </template>
     <template #right>
       <Right />
