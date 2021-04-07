@@ -2,12 +2,11 @@
   <div class="ioc-container-mark-line">
     <div
       v-for="line in lines"
-      :key="line"
       v-show="linesStatus[line]"
+      :key="line"
       :class="line.includes('x') ? 'x' : 'y'"
-      :style="`background-color: ${enableMarkLine ? '#59c7f9': 'transparent'}`"
-      class="line"
       :ref="line"
+      class="line"
     />
   </div>
 </template>
@@ -17,7 +16,6 @@ export default {
   name: 'ioc-container-mark-line',
 
   inject: [
-    'enableMarkLine',
     'iocEditor'
   ],
 
@@ -53,12 +51,14 @@ export default {
       this.hideLine()
     })
   },
+
   methods: {
     hideLine () {
       Object.keys(this.linesStatus).forEach(line => {
         this.linesStatus[line] = false
       })
     },
+
     showLine (dragNode, isDownward, isRightward) {
       const lines = this.$refs
       const canvasReact = this.canvas.getBoundingClientRect()
@@ -387,7 +387,7 @@ export default {
   z-index: -1;
 
   .line {
-    background: #59c7f9;
+    background-color: #59c7f9;
     position: absolute;
     z-index: 10000;
     &.x {

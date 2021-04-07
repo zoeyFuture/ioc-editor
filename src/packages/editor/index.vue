@@ -36,12 +36,6 @@ export default {
       require: true
     },
 
-    // 是否启用辅助线
-    enableMarkLine: {
-      type: Boolean,
-      default: () => false
-    },
-
     editor: {
       type: Object,
       default: () => ({})
@@ -53,7 +47,6 @@ export default {
       iocEditor: this,
       mode: this.mode,
       selectComponent: this.selectComponent,
-      enableMarkLine: this.enableMarkLine,
       updateComponent: this.updateComponent
     }
   },

@@ -307,7 +307,9 @@ export default {
 
 ```
 
-## 安装
+## 安装与发布
+
+-   安装
 
 指定公司的npm源安装
 
@@ -317,6 +319,14 @@ cnpm --registry=http://10.0.10.59:7001 install @xm/ioc-editor -S
 或
 ```bash
 xnpm install @xm/ioc-editor -S
+```
+
+- 发布
+
+指定发布到公司的源
+
+```bash
+npm --registry=http://10.0.10.59:7001 publish
 ```
 
 ## 使用
