@@ -153,6 +153,9 @@ export default {
     -moz-transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
     -o-transform-origin: 0 0;
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    background-position:center;
 
     &__title {
       width: 100%;

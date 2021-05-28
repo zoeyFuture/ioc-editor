@@ -229,12 +229,13 @@ export default {
     },
 
     handleMouseDown (event) {
+      event.stopPropagation()
+      this.handleSelect()
+
       if (!this.componentDraggable) {
         return false
       }
-      event.stopPropagation()
 
-      this.handleSelect()
       const { position: { x, y } } = this.component
       const mouseMove = (mouseMoveEvent) => {
         const offsetX = mouseMoveEvent.pageX - event.pageX
@@ -420,11 +421,6 @@ export default {
     }
   }
 
-  &:hover,
-  &.select {
-    z-index: 999 !important;
-    border: 1px solid #2266FF;
-  }
   &.select {
     .ioc-container-operator__header,
     .ioc-container-operator__point {
@@ -438,7 +434,12 @@ export default {
     }
   }
   &.draggable-disabled {
-    border: 1px solid currentColor !important;
+    //border: 1px solid currentColor !important;
+  }
+  &:hover,
+  &.select {
+    z-index: 999 !important;
+    border: 1px solid #2266FF !important;
   }
   &__content {
     width: 100%;
