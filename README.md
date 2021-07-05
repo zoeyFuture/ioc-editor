@@ -8,6 +8,18 @@ git地址：[Github](https://github.com/shinemofe/ioc-editor)
 
 Demo地址：[Demo](https://zoeyfuture.github.io/ioc-editor/dist/#/)
 
+# Publish
+
+打包发布组件
+
+修改好版本号后，打包发布
+
+```bash
+npm run build-boundle
+npm publish # 发布 npm
+npm publish --registry=http://10.0.10.59:7001
+```
+
 # Usage
 
 指定公司的npm源安装
