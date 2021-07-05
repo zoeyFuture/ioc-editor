@@ -35,8 +35,7 @@
       <ioc-canvas
         :component-render="componentRender"
         :canvas="canvas"
-        :center="true"
-        :auxiliary-line="true"
+        mark-line
       />
     </template>
     <template #right>

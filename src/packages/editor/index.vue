@@ -47,7 +47,9 @@ export default {
       iocEditor: this,
       mode: this.mode,
       selectComponent: this.selectComponent,
-      updateComponent: this.updateComponent
+      updateComponent: this.updateComponent,
+      hiddenComponent: this.hiddenComponent,
+      showComponent: this.showComponent,
     }
   },
 
@@ -225,10 +227,30 @@ export default {
       }
     },
 
+    hiddenComponent (id) {
+      const index = this.components.findIndex(item => item.id === id)
+      if (index > -1) {
+        const backupComponent = cloneDeep(this.components[index])
+        backupComponent.display = false
+        this.$set(this.components, index, backupComponent)
+        this.emitChange(this.components)
+      }
+    },
+
+    showComponent (id) {
+      const index = this.components.findIndex(item => item.id === id)
+      if (index > -1) {
+        const backupComponent = cloneDeep(this.components[index])
+        backupComponent.display = true
+        this.$set(this.components, index, backupComponent)
+        this.emitChange(this.components)
+      }
+    },
+
     updateComponent (component) {
       const index = this.components.findIndex(item => item.id === component.id)
       if (index > -1) {
-        this.$set(this.components, index, component)
+        this.$set(this.components, index, cloneDeep(component))
         this.emitChange(this.components)
       }
     },

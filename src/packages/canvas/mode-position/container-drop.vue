@@ -6,13 +6,17 @@
     @drop.stop.prevent="handleDrop"
   >
     <template v-if="components.length > 0">
-      <container-operator
-        v-for="component in components"
-        :key="component.id"
-        :component="component"
-      >
-        <container-render :component="component" />
-      </container-operator>
+      <template v-for="component in components">
+        <container-operator
+          :key="component.id"
+          :component="component"
+          v-if="showComponent(component)"
+        >
+          <container-render
+            :component="component"
+          />
+        </container-operator>
+      </template>
     </template>
 
     <template v-else>
@@ -81,6 +85,13 @@ export default {
           y: pageY - this.canvasPosition.y - 54
         }
       })
+    },
+
+    showComponent (component) {
+      if (Reflect.has(component, 'display')) {
+        return component.display
+      }
+      return true
     }
   }
 }

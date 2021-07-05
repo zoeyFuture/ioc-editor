@@ -11,7 +11,10 @@
       v-for="component in components"
       :key="component.id"
     >
-      <container-render :component="component"/>
+      <container-render
+        v-if="showComponent(component)"
+        :component="component"
+      />
     </smooth-draggable>
   </smooth-container>
 </template>
@@ -95,6 +98,13 @@ export default {
           this.iocEditor.removeComponent(this.components[removedIndex].id)
         }
       }
+    },
+
+    showComponent (component) {
+      if (Reflect.has(component, 'display')) {
+        return component.display
+      }
+      return true
     }
   }
 }
